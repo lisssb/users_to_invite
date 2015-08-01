@@ -16,9 +16,35 @@
     res.on('end', function() {
       body = body.replace(/\}\n\{/g, '},{');
       body = '[' + body + ']';
-      //console.log(JSON.parse(body));
+      get_users_to_invite(JSON.parse(body));
     });
   }).end();
+
+  /**
+@param{Array[object]} ==> users
+get the users that are within 100km of the Dublin office
+**/
+get_users_to_invite = function(users){
+  var user;
+  var current;
+  var result = [];
+  var distance;
+  for(user in users){
+    current = users[user];
+    if(canBeInvited(current)){
+      result.push({
+        name : current.name,
+        id : current.user_id
+      });
+    }
+  }
+  result.sort(function(a, b){
+    return a.id - b.id;
+  });
+  print_users_list(result);
+  return result;
+
+};
 
   /**
   @param{object} the parameters that define the user properties
@@ -69,6 +95,17 @@
     return R * central_angle;
   };
 
+  /**
+  @param{Array[objects]} ==> users_list
+  **/
+  var print_users_list = function(users){
+    var i = 0;
+    var len = users.length;
+    for ( i; i < len; i += 1) {
+      console.log(users[i].id + ' ' + users[i].name );
+    }
+  }
+
 
 
 
@@ -76,7 +113,8 @@
   var result = {
     toRadians : toRadians,
     getDistance : getDistance,
-    canBeInvited : canBeInvited
+    canBeInvited : canBeInvited,
+    getUsersToInvite : get_users_to_invite
   };
   module.exports = result;
 })()
