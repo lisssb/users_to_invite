@@ -21,30 +21,29 @@
   }).end();
 
   /**
-@param{Array[object]} ==> users
-get the users that are within 100km of the Dublin office
-**/
-get_users_to_invite = function(users){
-  var user;
-  var current;
-  var result = [];
-  var distance;
-  for(user in users){
-    current = users[user];
-    if(canBeInvited(current)){
-      result.push({
-        name : current.name,
-        id : current.user_id
-      });
+  @param{Array[object]} ==> users
+  get the users that are within 100km of the Dublin office
+  **/
+  var get_users_to_invite = function(users){
+    var user;
+    var current;
+    var result = [];
+    for(user in users){
+      current = users[user];
+      if(canBeInvited(current)){
+        result.push({
+          name : current.name,
+          id : current.user_id
+        });
+      }
     }
-  }
-  result.sort(function(a, b){
-    return a.id - b.id;
-  });
-  print_users_list(result);
-  return result;
+    result.sort(function(a, b){
+      return a.id - b.id;
+    });
+    print_users_list(result);
+    return result;
 
-};
+  };
 
   /**
   @param{object} the parameters that define the user properties
@@ -104,11 +103,7 @@ get_users_to_invite = function(users){
     for ( i; i < len; i += 1) {
       console.log(users[i].id + ' ' + users[i].name );
     }
-  }
-
-
-
-
+  };
 
   var result = {
     toRadians : toRadians,
@@ -117,4 +112,4 @@ get_users_to_invite = function(users){
     getUsersToInvite : get_users_to_invite
   };
   module.exports = result;
-})()
+})();
