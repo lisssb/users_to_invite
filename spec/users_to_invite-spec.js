@@ -36,7 +36,69 @@ describe('Users to invate test', function(){
     });
   });
 
-  
+
+
+  describe('canBeInvitedFunction', function(){
+  describe('canNotBeInvited', function(){
+    var user_1;
+    var user_2;
+    beforeEach(function(){
+      user_1 = {
+        "latitude": "52.986375",
+        "user_id": 12,
+        "name": "Christina McArdle",
+        "longitude": "-6.043701"
+      };
+      user_2 = {
+        "latitude": "53.2451022",
+        "user_id": 4,
+        "name": "Ian Kehoe",
+        "longitude": "-6.238335"
+      };
+    });
+
+    it('The user1 can not be invited', function(){
+      var can_be_invited = user.canBeInvited(user_1);
+      expect(can_be_invited).toEqual(false);
+    });
+
+    it('The user2 can be invited', function(){
+      var can_be_invited = user.canBeInvited(user_2);
+      expect(can_be_invited).toEqual(false);
+    });
+  });
+
+
+  describe('CanBeInvited', function(){
+    var user_json1;
+    var user_json2;
+    beforeEach(function(){
+      user_1 = {
+        "latitude": "52.366037",
+        "user_id": 16,
+        "name": "Ian Larkin",
+        "longitude": "-8.179118"
+      };
+      user_2 = {
+        "latitude": "51.802",
+        "user_id": 21,
+        "name": "David Ahearn",
+        "longitude": "-9.442"
+      };
+    });
+
+    it('The user1 can be invited', function(){
+      var can_be_invited = user.canBeInvited(user_1);
+      expect(can_be_invited).toEqual(true);
+    });
+    it('The user2 can be invited', function(){
+      var can_be_invited = user.canBeInvited(user_2);
+      expect(can_be_invited).toEqual(true);
+    });
+  });
+});
+
+
 
 
 });

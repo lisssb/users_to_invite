@@ -1,5 +1,36 @@
 (function(){
 
+  var http = require('http');
+
+  var options = {
+    host : 'cdn.rawgit.com',
+    path : '/brianw/19896c50afa89ad4dec3/raw/6c11047887a03483c50017c1d451667fd62a53ca/gistfile1.txt'
+  }
+
+  http.request(options , function(res){
+    var body = '';
+    var i = 0;
+    res.on('data', function(chunk) {
+      body += chunk;
+    });
+    res.on('end', function() {
+      body = body.replace(/\}\n\{/g, '},{');
+      body = '[' + body + ']';
+      //console.log(JSON.parse(body));
+    });
+  }).end();
+
+  /**
+  @param{object} the parameters that define the user properties
+  @param{number} the
+  @return This function tell if the users have a distance to (dublin offices)
+  minor or equal to "distance"
+  **/
+  var canBeInvited = function(user, distance){
+    var distance = distance || 100000;
+    return getDistance(user.latitude, user.longitude) >= distance;
+  };
+
   /**
   @param{number} angle
   @return{number} The angle given converted to radian.
@@ -44,7 +75,8 @@
 
   var result = {
     toRadians : toRadians,
-    getDistance : getDistance
+    getDistance : getDistance,
+    canBeInvited : canBeInvited
   };
   module.exports = result;
 })()
