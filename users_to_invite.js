@@ -54,7 +54,7 @@ get_users_to_invite = function(users){
   **/
   var canBeInvited = function(user, distance){
     var distance = distance || 100000;
-    return getDistance(user.latitude, user.longitude) >= distance;
+    return getDistance(user.latitude, user.longitude) <= distance;
   };
 
   /**

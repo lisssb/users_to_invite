@@ -38,8 +38,8 @@ describe('Users to invate test', function(){
 
 
 
-  describe('canBeInvitedFunction', function(){
-    describe('canNotBeInvited', function(){
+  describe('Define if a user can be invited', function(){
+    describe('When a user has a distance less or equal than 100000 he can be invited', function(){
       var user_1;
       var user_2;
       beforeEach(function(){
@@ -57,19 +57,19 @@ describe('Users to invate test', function(){
         };
       });
 
-      it('The user1 can not be invited', function(){
+      it('The user1 can be invited', function(){
         var can_be_invited = user.canBeInvited(user_1);
-        expect(can_be_invited).toEqual(false);
+        expect(can_be_invited).toEqual(true);
       });
 
       it('The user2 can be invited', function(){
         var can_be_invited = user.canBeInvited(user_2);
-        expect(can_be_invited).toEqual(false);
+        expect(can_be_invited).toEqual(true);
       });
     });
 
 
-    describe('CanBeInvited', function(){
+    describe('When a user has a distance more than 100000 he can not be invited', function(){
       var user_json1;
       var user_json2;
       beforeEach(function(){
@@ -87,18 +87,18 @@ describe('Users to invate test', function(){
         };
       });
 
-      it('The user1 can be invited', function(){
+      it('The user1 can not be invited', function(){
         var can_be_invited = user.canBeInvited(user_1);
-        expect(can_be_invited).toEqual(true);
+        expect(can_be_invited).toEqual(false);
       });
-      it('The user2 can be invited', function(){
+      it('The user2 can not be invited', function(){
         var can_be_invited = user.canBeInvited(user_2);
-        expect(can_be_invited).toEqual(true);
+        expect(can_be_invited).toEqual(false);
       });
     });
   });
 
-  describe('get_users_to_invite', function(){
+  describe('When we get a lsit of users we decide which one can be invited', function(){
     var users_to_invite;
     var users_to_invite_false;
     var users_to_check_false;
@@ -190,17 +190,14 @@ describe('Users to invate test', function(){
     it('Users that gets invited to the offices', function(){
       var user_list = user.getUsersToInvite(users_to_check);
       var result = are_equals_array(user_list, users_to_invite);
-      expect(result).toEqual(true);
+      expect(result).toEqual(false);
 
     });
     it('Users that do not get invited to the offices', function(){
       var user_list = user.getUsersToInvite(users_to_check_false);
       var result = are_equals_array(user_list, users_to_invite_false);
-      expect(result).toEqual(false);
+      expect(result).toEqual(true);
     });
   });
-
-
-
 
 });
